@@ -21,7 +21,7 @@ int main()
         struct hostent *host;
         struct sockaddr_in server_addr;  
 
-        host = gethostbyname("127.0.0.1");
+        host = gethostbyname("192.168.42.186");
 
         if ((sock = socket(AF_INET, SOCK_STREAM, 0)) == -1) {
             perror("Socket");
@@ -66,7 +66,7 @@ int main()
 				char buffer[1024];
 				FILE *f;
 				printf("\nGoing to open file");
-				f=fopen("Server.py","r");
+				f=fopen("ReadWriteServer.py","r");
 				printf("\n YYYYYYYYYYYYYYYYY" );
         int bytes_read = 0;
           printf("\n WWWWWWWWWWWWWWWWWW");
