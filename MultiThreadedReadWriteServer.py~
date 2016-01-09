@@ -1,0 +1,72 @@
+#!/usr/bin/python
+ 
+# Import all from module socket
+from socket import *
+#Importing all from thread
+from thread import *
+ 
+# Defining server address and port
+host = ''  #'localhost' or '127.0.0.1' or '' are all same
+port = 8000 #Use port > 1024, below it all are reserved
+ 
+#Creating socket object
+sock = socket()
+sock.setsockopt(SOL_SOCKET,SO_REUSEADDR, 1)
+#Binding socket to a address. bind() takes tuple of host and port.
+sock.bind((host, port))
+#Listening at the address
+sock.listen(5) #5 denotes the number of clients can queue
+ 
+def clientthread(c):
+#infinite loop so that function do not terminate and thread do not end.
+     while True:
+		print "inside loop"
+		#c, addr = s.accept()     # Establish connection with client.
+		print "started server333333"
+		print 'Got connection from', addr
+		print "Receiving..."
+		l = c.recv(1024)
+		print l
+		msg = l.split()
+		if(msg):
+			print msg[0]+" ####"
+		if(msg[0] == "Read" and msg): # For Reading File in Server from client
+			print "@@@@ "+msg[1]
+			print " opening "+msg[1]
+			f1 = open(msg[1],'rb')
+			if(f1):
+				print msg[1]+" open "
+				l = f1.read(1024)
+				while (l):
+					print "&&"+l
+					print "Receiving..."
+					c.send(l)
+					l = f1.read(1024)
+				print l
+			else : print "Sorry file didnot open"
+			f1.close()
+		if(msg[0] == "Write"): # For writing to File in server from client
+			print "@@@11"+msg[1]
+			print "Writing to "+msg[1]
+			f1 = open(msg[1],'wb')
+			if(f1):
+				print "Open File "+ str(msg[1])
+				print "****Hi****"
+				l = 2
+				#print l
+				while(l < len(msg)-1):
+					#l = c.recv(1024)
+					print msg[l]
+					f1.write(msg[l])
+					l+=1
+			f1.close()
+		c.send('Thank you for connecting')
+ 
+while True:
+#Accepting incoming connections
+    conn, addr = sock.accept()
+#Creating new thread. Calling clientthread function for this function and passing conn as argument.
+    start_new_thread(clientthread,(conn,)) #start new thread takes 1st argument as a function name to be run, second is the tuple of arguments to the function.
+ 
+conn.close()
+sock.close()
