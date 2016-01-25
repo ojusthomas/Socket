@@ -14,9 +14,14 @@
 
 int main()
 {
+
         int sock, connected, bytes_recieved , true = 1;
         static int count = 0; 
         char send_data [1024] , recv_data[1024],*filename;       
+
+        //int sock, connected, bytes_recieved , true = 1;  
+        //char send_data [1024] , recv_data[1024];       
+
 
         struct sockaddr_in server_addr,client_addr;    
         int sin_size;
@@ -100,6 +105,7 @@ int main()
 					       printf("\n Data received : %s ", recv_data);
 					       //fprintf(fp,"%s",buffer);
 					       //writeToFile("torecv.txt",recv_data);
+
 					       //while(strcmp(recv_data,"EOF")!=0)
 					       //{
                  char *temp ;
@@ -119,6 +125,23 @@ int main()
               fflush(stdout);
               //break;
             
+
+					      /* while(strcmp(recv_data,"EOF")!=0)
+					       {
+                    printf("\n RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR");
+						        writeToFile("torecv.txt",recv_data);
+						        bytes_recieved = recv(connected,recv_data,1024,0);
+                    recv_data[bytes_recieved] = '\0';
+						        //printf("\n RECIEVED DATA = %s " , recv_data);
+					       }
+					       printf("\nthe file was received successfully");
+					       close(sock);
+					       break;
+			        }
+              fflush(stdout);
+              //break;
+            }*/
+
             break;
         }       
 
